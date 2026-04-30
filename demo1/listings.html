@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Estate · Listings</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #f5f9fe;
+            color: #1b2d3f;
+            line-height: 1.5;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* header / nav */
+        .header {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0.9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(150deg, #103549, #2b6584);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo i {
+            background: none;
+            -webkit-text-fill-color: #22668a;
+            margin-right: 5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            font-weight: 500;
+            color: #1e405b;
+            transition: 0.2s;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            border-bottom-color: #2b6c9e;
+            color: #0e2f43;
+        }
+        .btn-outline {
+            border: 1.5px solid #2b6c9e;
+            background: transparent;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1d5477;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #e3f0fa;
+        }
+
+        /* page container */
+        .page-container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* breadcrumb */
+        .breadcrumb {
+            display: flex;
+            gap: 0.8rem;
+            color: #4a6f8f;
+            margin-bottom: 1.5rem;
+        }
+        .breadcrumb a {
+            color: #1a5273;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #143647;
+            margin-bottom: 0.5rem;
+        }
+        .subhead {
+            color: #2b5570;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* filter bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            box-shadow: 0 8px 18px -8px rgba(30,60,90,0.08);
+        }
+        .filter-chip {
+            background: #f0f7fe;
+            border-radius: 40px;
+            padding: 0.5rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1d4f73;
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid transparent;
+        }
+        .filter-chip i {
+            margin-right: 6px;
+            color: #2b6c9e;
+        }
+        .filter-chip:hover, .filter-chip.active {
+            background: #1d4f73;
+            color: white;
+        }
+        .filter-chip:hover i, .filter-chip.active i {
+            color: white;
+        }
+        .filter-chip.active {
+            background: #1d4f73;
+        }
+
+        /* property grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1.8rem;
+            box-shadow: 0 12px 28px -12px rgba(0,45,70,0.12);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(20,60,90,0.2);
+        }
+        .card-img {
+            height: 210px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .price-tag {
+            position: absolute;
+            bottom: 14px;
+            left: 16px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(4px);
+            padding: 0.35rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1a4a6b;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .card-content {
+            padding: 1.4rem 1.2rem 1.6rem;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #122f41;
+        }
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #5f7d99;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .features {
+            display: flex;
+            gap: 1.2rem;
+            border-top: 1px solid #e3ecf3;
+            padding-top: 0.9rem;
+            font-size: 0.95rem;
+            color: #1e4059;
+        }
+        .features span i {
+            margin-right: 4px;
+            color: #487ba3;
+        }
+        .badge {
+            background: #ddeeff;
+            color: #1b5277;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.6rem;
+        }
+        .footer {
+            background: #e2ecf5;
+            padding: 2.5rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+        .footer-grid {
+            max-width: 1300px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+            gap: 2rem;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* toast */
+        .toast-msg {
+            visibility: hidden;
+            background: #143647;
+            color: white;
+            text-align: center;
+            border-radius: 60px;
+            padding: 16px 24px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            transition: 0.2s;
+            opacity: 0;
+            box-shadow: 0 10px 25px rgba(0,30,50,0.3);
+        }
+        .toast-msg.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 700px) {
+            .filter-bar { border-radius: 30px; padding: 1rem; }
+            .nav-container { flex-direction: column; gap: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- toast for demo interaction -->
+<div id="demoToast" class="toast-msg">✨ Nexus demo</div>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><i class="fas fa-building"></i> NexusEstate</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="listings.html" class="active">Buy</a>
+            <a href="listings.html">Rent</a>
+            <a href="contact.html">Contact</a>
+            <a href="property.html?id=101" class="btn-outline"><i class="far fa-star"></i> Featured</a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== LISTINGS PAGE CONTENT ========== -->
+<main class="page-container">
+    <!-- breadcrumb navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.8rem;"></i> 
+        <span>Listings</span>
+    </div>
+
+    <h1>Discover your next home</h1>
+    <div class="subhead">256 properties available in Austin metro</div>
+
+    <!-- filter chips (interactive demo) -->
+    <div class="filter-bar">
+        <span class="filter-chip active" data-filter="all"><i class="fas fa-home"></i> All</span>
+        <span class="filter-chip" data-filter="house"><i class="fas fa-tree"></i> Houses</span>
+        <span class="filter-chip" data-filter="apartment"><i class="fas fa-building"></i> Apartments</span>
+        <span class="filter-chip" data-filter="water"><i class="fas fa-water"></i> Waterfront</span>
+        <span class="filter-chip" data-filter="new"><i class="fas fa-star"></i> New listing</span>
+        <span class="filter-chip" data-filter="price"><i class="fas fa-arrow-down"></i> Price (low)</span>
+    </div>
+
+    <!-- property grid (all cards link to property.html with id) -->
+    <div class="grid-3" id="propertyGrid">
+        <!-- card 1 - house -->
+        <div class="card" data-id="101" data-type="house" onclick="window.location.href='property.html?id=101'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$925,000</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Modern Cedar Villa</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 3100 Breezy Oaks, Austin</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 4 beds</span>
+                    <span><i class="fas fa-bath"></i> 3 baths</span>
+                    <span><i class="fas fa-ruler-combined"></i> 2,450 sqft</span>
+                </div>
+                <span class="badge">for sale</span>
+            </div>
+        </div>
+
+        <!-- card 2 - apartment -->
+        <div class="card" data-id="102" data-type="apartment" onclick="window.location.href='property.html?id=102'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$2,300 / mo</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The Harrison Loft</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 87 Lavaca St, Austin</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 2 beds</span>
+                    <span><i class="fas fa-bath"></i> 2 baths</span>
+                    <span><i class="fas fa-ruler-combined"></i> 1,150 sqft</span>
+                </div>
+                <span class="badge">for rent</span>
+            </div>
+        </div>
+
+        <!-- card 3 - waterfront house -->
+        <div class="card" data-id="103" data-type="house water" onclick="window.location.href='property.html?id=103'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$1,450,000</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Lakefront Escape</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 412 Shoreline Dr, Lakeway</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 5 beds</span>
+                    <span><i class="fas fa-bath"></i> 4 baths</span>
+                    <span><i class="fas fa-ruler-combined"></i> 3,800 sqft</span>
+                </div>
+                <span class="badge">waterfront</span>
+            </div>
+        </div>
+
+        <!-- card 4 - new apartment -->
+        <div class="card" data-id="104" data-type="apartment new" onclick="window.location.href='property.html?id=104'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$3,100 / mo</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The Kathryn · brand new</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 200 E 3rd St, Austin</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 2 beds</span>
+                    <span><i class="fas fa-bath"></i> 2 baths</span>
+                    <span><i class="fas fa-ruler-combined"></i> 1,340 sqft</span>
+                </div>
+                <span class="badge">new + rent</span>
+            </div>
+        </div>
+
+        <!-- card 5 - house -->
+        <div class="card" data-id="105" data-type="house" onclick="window.location.href='property.html?id=105'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$775,000</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Midcentury ranch</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 1300 Spyglass Dr</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 3 beds</span>
+                    <span><i class="fas fa-bath"></i> 2 baths</span>
+                    <span><i class="fas fa-swimmer"></i> pool</span>
+                </div>
+                <span class="badge">for sale</span>
+            </div>
+        </div>
+
+        <!-- card 6 - new house -->
+        <div class="card" data-id="106" data-type="house new" onclick="window.location.href='property.html?id=106'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$1,195,000</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Hillside modern</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 901 West Lynn</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 4 beds</span>
+                    <span><i class="fas fa-bath"></i> 3.5 baths</span>
+                    <span><i class="fas fa-ruler-combined"></i> 2,900 sqft</span>
+                </div>
+                <span class="badge">just listed</span>
+            </div>
+        </div>
+
+        <!-- card 7 - additional house -->
+        <div class="card" data-id="107" data-type="house" onclick="window.location.href='property.html?id=107'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$849,000</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Sunset Ridge</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 2300 Scenic Blvd</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 3 beds</span>
+                    <span><i class="fas fa-bath"></i> 2 baths</span>
+                    <span><i class="fas fa-ruler-combined"></i> 2,100 sqft</span>
+                </div>
+                <span class="badge">open house sun</span>
+            </div>
+        </div>
+
+        <!-- card 8 - apartment -->
+        <div class="card" data-id="108" data-type="apartment" onclick="window.location.href='property.html?id=108'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$1,950 / mo</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">The Dylan</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 500 W 6th St</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 1 bed</span>
+                    <span><i class="fas fa-bath"></i> 1 bath</span>
+                    <span><i class="fas fa-ruler-combined"></i> 750 sqft</span>
+                </div>
+                <span class="badge">downtown</span>
+            </div>
+        </div>
+
+        <!-- card 9 - waterfront new -->
+        <div class="card" data-id="109" data-type="house water new" onclick="window.location.href='property.html?id=109'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&auto=format&fit=crop');">
+                <span class="price-tag">$2,150,000</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Cliffside view</h3>
+                <div class="location"><i class="fas fa-map-pin"></i> 12 Lookout Point</div>
+                <div class="features">
+                    <span><i class="fas fa-bed"></i> 4 beds</span>
+                    <span><i class="fas fa-bath"></i> 3 baths</span>
+                    <span><i class="fas fa-ruler-combined"></i> 3,200 sqft</span>
+                </div>
+                <span class="badge">new + waterfront</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- load more demo -->
+    <div style="text-align: center; margin: 3rem 0">
+        <button class="btn-outline" onclick="demoToast('📄 loading more properties (demo)')" style="padding: 0.8rem 3rem;"><i class="fas fa-spinner"></i> Load more</button>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div><h4>NexusEstate</h4><p>Professional demo – listings page</p></div>
+        <div><h4>Pages</h4>
+            <ul style="list-style:none;">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">Listings</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="property.html?id=101">Sample property</a></li>
+            </ul>
+        </div>
+        <div><h4>Contact</h4>
+            <p><i class="fas fa-phone"></i> (512) 555-0202<br>
+            <i class="fas fa-envelope"></i> hello@nexusestate.demo</p>
+        </div>
+    </div>
+    <div class="copyright">© 2025 NexusEstate – dedicated listing.html page</div>
+</footer>
+
+<!-- JavaScript for demo interactions (filters, toast) -->
+<script>
+    // toast function
+    function demoToast(message) {
+        const toast = document.getElementById('demoToast');
+        toast.textContent = message || '✨ Nexus demo';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // filter chip interaction (simulate filter)
+    const chips = document.querySelectorAll('.filter-chip');
+    chips.forEach(chip => {
+        chip.addEventListener('click', function(e) {
+            // remove active from all
+            chips.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            const filter = this.innerText.trim();
+            demoToast(`🔍 filtered by: ${filter} (demo)`);
+        });
+    });
+
+    // make any click on card also show a quick toast (but navigation happens)
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // navigation already in onclick, but we can show toast for demo
+            // prevent double toast if needed
+            if (!e.isTrusted) return;
+            // small toast before navigation (optional)
+            const id = this.getAttribute('data-id');
+            demoToast(`📋 loading property ${id}...`);
+            // actual navigation is in onclick attribute, so it's fine
+        });
+    });
+
+    // set active nav based on current page (listings.html)
+    // already set manually in header active class
+
+    window.demoToast = demoToast;
+</script>
+<!-- make sure active class on nav works if user comes from other page -->
+</body>
+</html>

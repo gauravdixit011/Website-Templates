@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Estate · Modern Cedar Villa</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #f5f9fe;
+            color: #1b2d3f;
+            line-height: 1.5;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* header / nav */
+        .header {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0.9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(150deg, #103549, #2b6584);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo i {
+            background: none;
+            -webkit-text-fill-color: #22668a;
+            margin-right: 5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            font-weight: 500;
+            color: #1e405b;
+            transition: 0.2s;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            border-bottom-color: #2b6c9e;
+            color: #0e2f43;
+        }
+        .btn-outline {
+            border: 1.5px solid #2b6c9e;
+            background: transparent;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1d5477;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #e3f0fa;
+        }
+
+        /* page container */
+        .page-container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* breadcrumb */
+        .breadcrumb {
+            display: flex;
+            gap: 0.8rem;
+            color: #4a6f8f;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .breadcrumb a {
+            color: #1a5273;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #143647;
+            margin-bottom: 0.5rem;
+        }
+
+        /* gallery */
+        .detail-gallery {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            border-radius: 2rem;
+            overflow: hidden;
+        }
+        .detail-main-img {
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            border-radius: 2rem;
+            box-shadow: 0 15px 30px -10px rgba(0,40,70,0.2);
+        }
+        .detail-sub {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .detail-sub div {
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px -8px rgba(0,40,70,0.15);
+        }
+
+        /* property badges */
+        .prop-badge {
+            display: inline-block;
+            background: #ddeeff;
+            color: #1b5277;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-right: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* specs cards */
+        .detail-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: white;
+            padding: 2rem 2.5rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 12px 28px -12px rgba(0,45,70,0.12);
+        }
+        .spec-item {
+            text-align: center;
+            min-width: 100px;
+        }
+        .spec-item i {
+            font-size: 2rem;
+            color: #1d4f73;
+            margin-bottom: 0.5rem;
+        }
+        .spec-item .spec-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .spec-item .spec-label {
+            color: #5f7d99;
+            font-size: 0.9rem;
+        }
+
+        /* agent card */
+        .agent-sidebar {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 15px 30px -12px rgba(0,45,70,0.15);
+            margin: 2rem 0;
+        }
+        .agent-profile {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid white;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+        }
+        .agent-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.2rem;
+        }
+        .agent-info p {
+            color: #2b5570;
+        }
+
+        .btn-primary {
+            background: #1d4f73;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-primary:hover {
+            background: #0f3853;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -6px #1d4f73;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1.5px solid #1d4f73;
+            color: #1d4f73;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover {
+            background: #e3f0fa;
+        }
+
+        /* features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+        }
+        .feature-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .feature-item i {
+            color: #1d4f73;
+            font-size: 1.3rem;
+            width: 30px;
+        }
+
+        .footer {
+            background: #e2ecf5;
+            padding: 2.5rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+        .footer-grid {
+            max-width: 1300px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+            gap: 2rem;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* toast */
+        .toast-msg {
+            visibility: hidden;
+            background: #143647;
+            color: white;
+            text-align: center;
+            border-radius: 60px;
+            padding: 16px 24px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            transition: 0.2s;
+            opacity: 0;
+            box-shadow: 0 10px 25px rgba(0,30,50,0.3);
+        }
+        .toast-msg.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .two-col { grid-template-columns: 1fr; }
+            .detail-gallery { grid-template-columns: 1fr; }
+            .detail-sub { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- toast for demo interaction -->
+<div id="demoToast" class="toast-msg">✨ Nexus demo</div>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><i class="fas fa-building"></i> NexusEstate</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="listings.html">Buy</a>
+            <a href="listings.html">Rent</a>
+            <a href="contact.html">Contact</a>
+            <a href="property.html?id=101" class="btn-outline active"><i class="far fa-star"></i> Featured</a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== PROPERTY DETAIL PAGE ========== -->
+<main class="page-container">
+    <!-- breadcrumb navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <i class="fas fa-chevron-right"></i>
+        <a href="listings.html">Listings</a> <i class="fas fa-chevron-right"></i>
+        <span id="breadcrumbTitle">Modern Cedar Villa</span>
+    </div>
+
+    <!-- property title and badges -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <h1 id="propTitle">Modern Cedar Villa</h1>
+        <div>
+            <span class="prop-badge" id="propBadge1"><i class="fas fa-tag"></i> For Sale</span>
+            <span class="prop-badge" id="propBadge2"><i class="fas fa-star"></i> Featured</span>
+        </div>
+    </div>
+    <p class="location" id="propLocation" style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+        <i class="fas fa-map-pin"></i> 3100 Breezy Oaks, Austin, TX 78746
+    </p>
+
+    <!-- gallery -->
+    <div class="detail-gallery">
+        <div class="detail-main-img" id="mainImage" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1000&auto=format&fit=crop');"></div>
+        <div class="detail-sub">
+            <div style="background-image: url('https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&auto=format&fit=crop');"></div>
+            <div style="background-image: url('https://images.unsplash.com/photo-1600607686527-6fb886090705?w=600&auto=format&fit=crop');"></div>
+        </div>
+    </div>
+
+    <!-- key specs -->
+    <div class="detail-specs">
+        <div class="spec-item">
+            <i class="fas fa-bed"></i>
+            <div class="spec-value" id="propBeds">4</div>
+            <div class="spec-label">bedrooms</div>
+        </div>
+        <div class="spec-item">
+            <i class="fas fa-bath"></i>
+            <div class="spec-value" id="propBaths">3</div>
+            <div class="spec-label">bathrooms</div>
+        </div>
+        <div class="spec-item">
+            <i class="fas fa-ruler-combined"></i>
+            <div class="spec-value" id="propSqft">2,450</div>
+            <div class="spec-label">sq ft</div>
+        </div>
+        <div class="spec-item">
+            <i class="fas fa-car"></i>
+            <div class="spec-value" id="propGarage">2</div>
+            <div class="spec-label">garage</div>
+        </div>
+        <div class="spec-item">
+            <i class="fas fa-calendar-alt"></i>
+            <div class="spec-value" id="propYear">2019</div>
+            <div class="spec-label">year built</div>
+        </div>
+        <div class="spec-item">
+            <i class="fas fa-tag"></i>
+            <div class="spec-value" id="propPrice">$925,000</div>
+            <div class="spec-label">price</div>
+        </div>
+    </div>
+
+    <!-- two column layout: description + agent sidebar -->
+    <div class="two-col">
+        <!-- left column: description and features -->
+        <div>
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">About this property</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: #2b4d66;" id="propDescription">
+                Stunning modern home in the heart of Austin's coveted Breezy Oaks neighborhood. 
+                This 4-bedroom, 3-bathroom residence features high ceilings, floor-to-ceiling windows, 
+                and a sleek open-concept design. The gourmet kitchen includes quartz countertops, 
+                stainless steel appliances, and a large island. Outside, enjoy a private backyard 
+                with a covered patio and mature landscaping. Minutes from downtown, top-rated schools, 
+                and Zilker Park.
+            </p>
+
+            <!-- features list -->
+            <div class="features-grid">
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Central A/C & heating</span></div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Hardwood floors</span></div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Smart home system</span></div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Walk-in closets</span></div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Private backyard</span></div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Two-car garage</span></div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Security system</span></div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Near hiking trails</span></div>
+            </div>
+
+            <!-- additional details -->
+            <div style="background: white; border-radius: 2rem; padding: 2rem; margin: 2rem 0;">
+                <h3 style="margin-bottom: 1rem;"><i class="fas fa-home"></i> Property details</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="border-bottom: 1px solid #e0ecf5;">
+                        <td style="padding: 0.8rem 0; color: #2b5570;">MLS ID</td>
+                        <td style="padding: 0.8rem 0; font-weight: 500;" id="propMls">NEX-101</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0ecf5;">
+                        <td style="padding: 0.8rem 0; color: #2b5570;">Lot size</td>
+                        <td style="padding: 0.8rem 0; font-weight: 500;" id="propLot">0.28 acres</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0ecf5;">
+                        <td style="padding: 0.8rem 0; color: #2b5570;">Property type</td>
+                        <td style="padding: 0.8rem 0; font-weight: 500;" id="propType">Single family</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.8rem 0; color: #2b5570;">Year built</td>
+                        <td style="padding: 0.8rem 0; font-weight: 500;" id="propYearBuilt">2019</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- right column: agent card and actions -->
+        <div>
+            <div class="agent-sidebar">
+                <div class="agent-profile">
+                    <div class="agent-avatar" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg');"></div>
+                    <div class="agent-info">
+                        <h3>Elena Reyes</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Listing agent</p>
+                        <p><i class="fas fa-star" style="color: #f4b740;"></i> 4.9 (128 reviews)</p>
+                    </div>
+                </div>
+                <p style="margin-bottom: 1.5rem;">
+                    <i class="fas fa-phone-alt"></i> (512) 555-0198<br>
+                    <i class="fas fa-envelope"></i> elena.r@nexusestate.demo
+                </p>
+                <button class="btn-primary" onclick="demoToast('📅 Showing request sent (demo)');">
+                    <i class="fas fa-calendar-check"></i> Schedule showing
+                </button>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn-secondary" style="flex:1;" onclick="demoToast('❤️ Saved to favorites (demo)');">
+                        <i class="far fa-heart"></i> Save
+                    </button>
+                    <button class="btn-secondary" style="flex:1;" onclick="demoToast('📤 Share link copied (demo)');">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                </div>
+                <hr style="margin: 1.5rem 0; border-color: #d0e2f0;">
+                <p style="text-align: center; color: #1d4f73;">
+                    <i class="fas fa-calculator"></i> <strong>Estimated monthly:</strong> $4,850*
+                </p>
+                <p style="font-size: 0.8rem; text-align: center; color: #6f8da8;">*with 20% down, estimated</p>
+            </div>
+
+            <!-- schools / nearby -->
+            <div style="background: white; border-radius: 2rem; padding: 1.8rem; margin-top: 1.5rem;">
+                <h4><i class="fas fa-school"></i> Nearby schools</h4>
+                <ul style="list-style: none; margin-top: 1rem;">
+                    <li><i class="fas fa-star" style="color: #f4b740; font-size: 0.8rem;"></i> <strong>Bryker Woods Elementary</strong> (0.8 mi)</li>
+                    <li><i class="fas fa-star" style="color: #f4b740; font-size: 0.8rem;"></i> <strong>O Henry Middle School</strong> (1.2 mi)</li>
+                    <li><i class="fas fa-star" style="color: #f4b740; font-size: 0.8rem;"></i> <strong>Austin High School</strong> (1.8 mi)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- similar listings mini section -->
+    <div style="margin: 3rem 0;">
+        <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Similar properties</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+            <div class="card" style="background: white; border-radius: 1.8rem; overflow: hidden; cursor: pointer;" onclick="window.location.href='property.html?id=103'">
+                <div style="height: 160px; background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&auto=format&fit=crop'); background-size: cover;"></div>
+                <div style="padding: 1.2rem;">
+                    <h4>Lakefront Escape</h4>
+                    <p style="color:#1d4f73; font-weight:700;">$1,450,000</p>
+                </div>
+            </div>
+            <div class="card" style="background: white; border-radius: 1.8rem; overflow: hidden; cursor: pointer;" onclick="window.location.href='property.html?id=106'">
+                <div style="height: 160px; background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&auto=format&fit=crop'); background-size: cover;"></div>
+                <div style="padding: 1.2rem;">
+                    <h4>Hillside modern</h4>
+                    <p style="color:#1d4f73; font-weight:700;">$1,195,000</p>
+                </div>
+            </div>
+            <div class="card" style="background: white; border-radius: 1.8rem; overflow: hidden; cursor: pointer;" onclick="window.location.href='property.html?id=105'">
+                <div style="height: 160px; background-image: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&auto=format&fit=crop'); background-size: cover;"></div>
+                <div style="padding: 1.2rem;">
+                    <h4>Midcentury ranch</h4>
+                    <p style="color:#1d4f73; font-weight:700;">$775,000</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div><h4>NexusEstate</h4><p>Professional demo – property detail page</p></div>
+        <div><h4>Pages</h4>
+            <ul style="list-style:none;">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">Listings</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="property.html?id=101">Current property</a></li>
+            </ul>
+        </div>
+        <div><h4>Contact</h4>
+            <p><i class="fas fa-phone"></i> (512) 555-0202<br>
+            <i class="fas fa-envelope"></i> hello@nexusestate.demo</p>
+        </div>
+    </div>
+    <div class="copyright">© 2025 NexusEstate – property.html with dynamic ID support</div>
+</footer>
+
+<!-- JavaScript for dynamic property loading based on URL parameter -->
+<script>
+    // toast function
+    function demoToast(message) {
+        const toast = document.getElementById('demoToast');
+        toast.textContent = message || '✨ Nexus demo';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // property database
+    const propertyDB = {
+        101: {
+            title: 'Modern Cedar Villa',
+            price: '$925,000',
+            beds: 4,
+            baths: 3,
+            sqft: '2,450',
+            garage: 2,
+            year: 2019,
+            location: '3100 Breezy Oaks, Austin, TX 78746',
+            description: 'Stunning modern home in the heart of Austin\'s coveted Breezy Oaks neighborhood. This 4-bedroom, 3-bathroom residence features high ceilings, floor-to-ceiling windows, and a sleek open-concept design. The gourmet kitchen includes quartz countertops, stainless steel appliances, and a large island. Outside, enjoy a private backyard with a covered patio and mature landscaping. Minutes from downtown, top-rated schools, and Zilker Park.',
+            mainImage: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=600&auto=format&fit=crop',
+            mls: 'NEX-101',
+            lot: '0.28 acres',
+            type: 'Single family',
+            badge1: 'For Sale',
+            badge2: 'Featured'
+        },
+        102: {
+            title: 'The Harrison Loft',
+            price: '$2,300 / mo',
+            beds: 2,
+            baths: 2,
+            sqft: '1,150',
+            garage: 1,
+            year: 2020,
+            location: '87 Lavaca St, Austin, TX 78701',
+            description: 'Modern downtown loft with exposed brick and floor-to-ceiling windows. Open concept living with chef\'s kitchen and private rooftop access.',
+            mainImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&auto=format&fit=crop',
+            mls: 'NEX-102',
+            lot: 'N/A',
+            type: 'Loft',
+            badge1: 'For Rent',
+            badge2: 'Downtown'
+        },
+        103: {
+            title: 'Lakefront Escape',
+            price: '$1,450,000',
+            beds: 5,
+            baths: 4,
+            sqft: '3,800',
+            garage: 3,
+            year: 2021,
+            location: '412 Shoreline Dr, Lakeway, TX 78734',
+            description: 'Stunning lakefront property with private dock and panoramic views. Open floor plan, chef\'s kitchen, and resort-style pool.',
+            mainImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',
+            mls: 'NEX-103',
+            lot: '0.5 acres',
+            type: 'Waterfront',
+            badge1: 'For Sale',
+            badge2: 'Waterfront'
+        },
+        104: {
+            title: 'The Kathryn',
+            price: '$3,100 / mo',
+            beds: 2,
+            baths: 2,
+            sqft: '1,340',
+            garage: 1,
+            year: 2023,
+            location: '200 E 3rd St, Austin, TX 78701',
+            description: 'Brand new luxury high-rise apartment with city views. High-end finishes, fitness center, and concierge service.',
+            mainImage: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&auto=format&fit=crop',
+            mls: 'NEX-104',
+            lot: 'N/A',
+            type: 'Apartment',
+            badge1: 'For Rent',
+            badge2: 'New Construction'
+        },
+        105: {
+            title: 'Midcentury ranch',
+            price: '$775,000',
+            beds: 3,
+            baths: 2,
+            sqft: '2,100',
+            garage: 2,
+            year: 1965,
+            location: '1300 Spyglass Dr, Austin, TX 78746',
+            description: 'Charming mid-century ranch with original details and modern updates. Features a pool, mature trees, and large lot.',
+            mainImage: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1602343164557-7e4708a1a243?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop',
+            mls: 'NEX-105',
+            lot: '0.35 acres',
+            type: 'Single family',
+            badge1: 'For Sale',
+            badge2: 'Pool'
+        },
+        106: {
+            title: 'Hillside modern',
+            price: '$1,195,000',
+            beds: 4,
+            baths: 3.5,
+            sqft: '2,900',
+            garage: 2,
+            year: 2022,
+            location: '901 West Lynn, Austin, TX 78703',
+            description: 'Contemporary hillside home with downtown views. Open concept, smart home features, and expansive deck.',
+            mainImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&auto=format&fit=crop',
+            mls: 'NEX-106',
+            lot: '0.22 acres',
+            type: 'Single family',
+            badge1: 'For Sale',
+            badge2: 'Just Listed'
+        },
+        107: {
+            title: 'Sunset Ridge',
+            price: '$849,000',
+            beds: 3,
+            baths: 2,
+            sqft: '2,100',
+            garage: 2,
+            year: 2015,
+            location: '2300 Scenic Blvd, Austin, TX 78703',
+            description: 'Beautiful hill country views, open floor plan, and updated kitchen. Close to hiking trails and shopping.',
+            mainImage: 'https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop',
+            mls: 'NEX-107',
+            lot: '0.3 acres',
+            type: 'Single family',
+            badge1: 'For Sale',
+            badge2: 'Open House Sun'
+        },
+        108: {
+            title: 'The Dylan',
+            price: '$1,950 / mo',
+            beds: 1,
+            baths: 1,
+            sqft: '750',
+            garage: 0,
+            year: 2018,
+            location: '500 W 6th St, Austin, TX 78701',
+            description: 'Modern downtown apartment with skyline views, rooftop pool, and fitness center. Walk to everything.',
+            mainImage: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=600&auto=format&fit=crop',
+            mls: 'NEX-108',
+            lot: 'N/A',
+            type: 'Apartment',
+            badge1: 'For Rent',
+            badge2: 'Downtown'
+        },
+        109: {
+            title: 'Cliffside view',
+            price: '$2,150,000',
+            beds: 4,
+            baths: 3,
+            sqft: '3,200',
+            garage: 2,
+            year: 2023,
+            location: '12 Lookout Point, Austin, TX 78746',
+            description: 'Brand new construction with panoramic lake views. Premium finishes, infinity pool, and guest house.',
+            mainImage: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1000&auto=format&fit=crop',
+            subImage1: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop',
+            subImage2: 'https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=600&auto=format&fit=crop',
+            mls: 'NEX-109',
+            lot: '0.6 acres',
+            type: 'Waterfront',
+            badge1: 'For Sale',
+            badge2: 'New + Waterfront'
+        }
+    };
+
+    // get ID from URL
+    function getPropertyId() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let id = urlParams.get('id');
+        if (id && propertyDB[id]) {
+            return id;
+        }
+        // default to 101 if invalid or missing
+        return '101';
+    }
+
+    // update page with property data
+    function loadProperty() {
+        const id = getPropertyId();
+        const prop = propertyDB[id] || propertyDB['101'];
+        
+        document.getElementById('propTitle').innerText = prop.title;
+        document.getElementById('breadcrumbTitle').innerText = prop.title;
+        document.getElementById('propLocation').innerHTML = '<i class="fas fa-map-pin"></i> ' + prop.location;
+        document.getElementById('mainImage').style.backgroundImage = `url('${prop.mainImage}')`;
+        document.getElementById('propBeds').innerText = prop.beds;
+        document.getElementById('propBaths').innerText = prop.baths;
+        document.getElementById('propSqft').innerText = prop.sqft;
+        document.getElementById('propGarage').innerText = prop.garage;
+        document.getElementById('propYear').innerText = prop.year;
+        document.getElementById('propPrice').innerText = prop.price;
+        document.getElementById('propDescription').innerText = prop.description;
+        document.getElementById('propMls').innerText = prop.mls;
+        document.getElementById('propLot').innerText = prop.lot;
+        document.getElementById('propType').innerText = prop.type;
+        document.getElementById('propYearBuilt').innerText = prop.year;
+        document.getElementById('propBadge1').innerHTML = `<i class="fas fa-tag"></i> ${prop.badge1}`;
+        document.getElementById('propBadge2').innerHTML = `<i class="fas fa-star"></i> ${prop.badge2}`;
+
+        // update sub images if they exist in DB (use defaults if not)
+        const subImages = document.querySelectorAll('.detail-sub div');
+        if (subImages.length >= 2) {
+            subImages[0].style.backgroundImage = `url('${prop.subImage1 || 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&auto=format&fit=crop'}')`;
+            subImages[1].style.backgroundImage = `url('${prop.subImage2 || 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=600&auto=format&fit=crop'}')`;
+        }
+
+        // update page title
+        document.title = `Nexus Estate · ${prop.title}`;
+    }
+
+    // run on page load
+    window.addEventListener('load', loadProperty);
+
+    // expose demoToast globally
+    window.demoToast = demoToast;
+</script>
+
+<!-- ensure active nav class -->
+</body>
+</html>

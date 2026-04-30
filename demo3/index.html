@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Estate · Glossy Premium Theme</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts for ultra-modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        body {
+            background: #f0f5fa;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.9) 0%, rgba(245,250,255,1) 90%);
+            color: #1b2b40;
+            line-height: 1.5;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Glossy ultra-modern theme with glassmorphism and glossy surfaces */
+        :root {
+            --glass-bg: rgba(255,255,255,0.25);
+            --glass-border: rgba(255,255,255,0.5);
+            --glass-shadow: 0 20px 40px -10px rgba(0,30,50,0.2), 0 0 0 1px rgba(255,255,255,0.6) inset;
+            --primary-glow: #0066cc;
+            --secondary-glow: #00a6b4;
+            --accent: #ff6b4a;
+            --surface: rgba(255,255,255,0.7);
+            --card-shine: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.4) 100%);
+            --deep-blue: #0a2540;
+            --soft-blue: #4d7c9e;
+        }
+
+        /* header with glass effect */
+        .header {
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #0a2540, #2b6c9e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            filter: drop-shadow(0 4px 6px rgba(0,100,200,0.2));
+        }
+        .logo i {
+            background: linear-gradient(135deg, #ff6b4a, #ff8a6a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 8px;
+            font-size: 2.2rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            font-weight: 500;
+            color: #0a2540;
+            transition: 0.2s;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+        .btn-glossy {
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.7);
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #0a2540;
+            box-shadow: 0 8px 20px -8px rgba(0,60,120,0.2), 0 0 0 1px rgba(255,255,255,0.8) inset;
+            transition: 0.2s;
+        }
+        .btn-glossy:hover {
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 12px 28px -8px #0066cc50;
+            transform: translateY(-2px);
+        }
+
+        /* page container */
+        .page-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2.5rem;
+        }
+
+        /* glassmorphic breadcrumb */
+        .breadcrumb {
+            display: flex;
+            gap: 0.8rem;
+            color: #2b5a7a;
+            margin-bottom: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            font-weight: 400;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #0a2540, #1b4d6e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* glossy filter bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            padding: 1.2rem 2.2rem;
+            border-radius: 80px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+        .filter-chip {
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 50px;
+            padding: 0.7rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0a2540;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.7);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .filter-chip i {
+            margin-right: 8px;
+            color: #0066cc;
+        }
+        .filter-chip:hover, .filter-chip.active {
+            background: white;
+            border-color: #0066cc;
+            box-shadow: 0 10px 20px -8px #0066cc60;
+            transform: translateY(-2px);
+        }
+
+        /* glossy property grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.2rem;
+            margin-top: 1.5rem;
+        }
+        .card {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 2.5rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,40,80,0.25), 0 0 0 1px rgba(255,255,255,0.8) inset;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid rgba(255,255,255,0.7);
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 35px 60px -15px #0066cc80, 0 0 0 2px white inset;
+            background: rgba(255,255,255,0.8);
+        }
+        .card-img {
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.8);
+        }
+        .price-tag {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(8px);
+            padding: 0.6rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #0a2540;
+            border: 1px solid white;
+            box-shadow: 0 10px 20px -8px black;
+        }
+        .card-content {
+            padding: 1.6rem 1.6rem 2rem;
+        }
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #0a2540;
+        }
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #2b5a7a;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .features {
+            display: flex;
+            gap: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 1rem;
+            font-weight: 500;
+            color: #1b4d6e;
+        }
+        .badge {
+            background: linear-gradient(145deg, #0066cc, #0099cc);
+            color: white;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 4px 10px rgba(0,100,200,0.3);
+        }
+
+        /* glossy footer */
+        .footer {
+            background: rgba(10,37,64,0.8);
+            backdrop-filter: blur(12px);
+            color: white;
+            padding: 3rem 2.5rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 -20px 40px -20px rgba(0,0,0,0.2);
+        }
+        .footer-grid {
+            max-width: 1400px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+            gap: 2.5rem;
+        }
+        .footer a {
+            color: rgba(255,255,255,0.8);
+            transition: 0.2s;
+        }
+        .footer a:hover {
+            color: white;
+            text-shadow: 0 0 8px cyan;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+        }
+
+        /* toast */
+        .toast-msg {
+            visibility: hidden;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(20px);
+            color: #0a2540;
+            text-align: center;
+            border-radius: 60px;
+            padding: 16px 32px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            transition: 0.2s;
+            opacity: 0;
+            border: 1px solid white;
+            box-shadow: 0 20px 40px -10px #0066cc;
+            font-weight: 600;
+        }
+        .toast-msg.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* contact page specific glossy */
+        .contact-glossy {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(16px);
+            border-radius: 3rem;
+            padding: 3rem;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 30px 60px -20px rgba(0,60,120,0.3);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(255,255,255,0.9);
+            border-radius: 60px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .btn-primary-glossy {
+            background: linear-gradient(145deg, #0066cc, #0099cc);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 15px 25px -8px #0066cc, 0 0 0 1px rgba(255,255,255,0.5) inset;
+            transition: 0.2s;
+        }
+        .btn-primary-glossy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 22px 35px -8px #0066cc;
+        }
+
+        /* property page specific */
+        .detail-gallery-glossy {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        .main-img-glossy {
+            height: 450px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 2.5rem;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 30px 50px -20px #0066cc;
+        }
+        .specs-glossy {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(12px);
+            padding: 2rem 3rem;
+            border-radius: 4rem;
+            margin: 2rem 0;
+            border: 1px solid white;
+        }
+
+        @media (max-width: 800px) {
+            .contact-glossy { grid-template-columns: 1fr; }
+            .detail-gallery-glossy { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- toast -->
+<div id="demoToast" class="toast-msg">✨ Luxe demo</div>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><i class="fas fa-crown"></i> Luxe Estate</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="listings.html">Properties</a>
+            <a href="listings.html">Rent</a>
+            <a href="contact.html">Contact</a>
+            <a href="property.html?id=101" class="btn-glossy"><i class="fas fa-star"></i> Featured</a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== HOME PAGE ========== -->
+<div id="home-page" style="display: block;">
+    <main class="page-container">
+        <!-- hero glossy -->
+        <div style="background: rgba(255,255,255,0.3); backdrop-filter: blur(16px); border-radius: 4rem; padding: 4rem; border: 1px solid white; box-shadow: 0 30px 60px -20px #0066cc80; margin-bottom: 3rem;">
+            <h1 style="font-size: 4rem;">Find Your Perfect<br>Glass & Gloss</h1>
+            <p style="font-size: 1.4rem; color: #0a2540; margin: 1.5rem 0;">Premium properties with ultra-modern finish</p>
+            <a href="listings.html" class="btn-primary-glossy" style="display: inline-block;"><i class="fas fa-search"></i> Explore Now</a>
+        </div>
+
+        <h2>Featured Listings</h2>
+        <div class="grid-3">
+            <!-- card 1 -->
+            <div class="card" onclick="window.location.href='property.html?id=101'">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=500&auto=format&fit=crop');"><span class="price-tag">$2,450,000</span></div>
+                <div class="card-content">
+                    <h3 class="card-title">Crystal Heights</h3>
+                    <div class="location"><i class="fas fa-map-pin"></i> Miami, FL</div>
+                    <div class="features"><span><i class="fas fa-bed"></i> 5</span><span><i class="fas fa-bath"></i> 5</span><span><i class="fas fa-ruler"></i> 4,200 sqft</span></div>
+                    <span class="badge">Premium</span>
+                </div>
+            </div>
+            <!-- card 2 -->
+            <div class="card" onclick="window.location.href='property.html?id=102'">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&auto=format&fit=crop');"><span class="price-tag">$8,500/mo</span></div>
+                <div class="card-content">
+                    <h3 class="card-title">The Glasshouse</h3>
+                    <div class="location"><i class="fas fa-map-pin"></i> New York, NY</div>
+                    <div class="features"><span><i class="fas fa-bed"></i> 3</span><span><i class="fas fa-bath"></i> 2</span><span><i class="fas fa-ruler"></i> 1,800 sqft</span></div>
+                    <span class="badge">Luxury Rent</span>
+                </div>
+            </div>
+            <!-- card 3 -->
+            <div class="card" onclick="window.location.href='property.html?id=103'">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&auto=format&fit=crop');"><span class="price-tag">$3,950,000</span></div>
+                <div class="card-content">
+                    <h3 class="card-title">Infinity Pool Villa</h3>
+                    <div class="location"><i class="fas fa-map-pin"></i> Los Angeles, CA</div>
+                    <div class="features"><span><i class="fas fa-bed"></i> 6</span><span><i class="fas fa-bath"></i> 5</span><span><i class="fas fa-ruler"></i> 5,100 sqft</span></div>
+                    <span class="badge">Waterfront</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- ========== LISTINGS PAGE ========== -->
+<div id="listings-page" style="display: none;">
+    <main class="page-container">
+        <div class="breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Properties</span></div>
+        <h1>Glossy Collection</h1>
+        <div class="filter-bar">
+            <span class="filter-chip active"><i class="fas fa-home"></i> All</span>
+            <span class="filter-chip"><i class="fas fa-building"></i> Villas</span>
+            <span class="filter-chip"><i class="fas fa-city"></i> Apartments</span>
+            <span class="filter-chip"><i class="fas fa-water"></i> Waterfront</span>
+            <span class="filter-chip"><i class="fas fa-crown"></i> Penthouses</span>
+        </div>
+        <div class="grid-3">
+            <!-- 6 cards -->
+            <div class="card" onclick="window.location.href='property.html?id=101'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=500');"><span class="price-tag">$2.45M</span></div><div class="card-content"><h3>Crystal Heights</h3><div class="location">Miami</div><div class="features"><span>5 beds</span><span>5 baths</span></div></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=102'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500');"><span class="price-tag">$8.5k/mo</span></div><div class="card-content"><h3>The Glasshouse</h3><div class="location">NYC</div><div class="features"><span>3 beds</span><span>2 baths</span></div></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=103'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500');"><span class="price-tag">$3.95M</span></div><div class="card-content"><h3>Infinity Villa</h3><div class="location">LA</div><div class="features"><span>6 beds</span><span>5 baths</span></div></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=104'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500');"><span class="price-tag">$1.95M</span></div><div class="card-content"><h3>Sunset Penthouse</h3><div class="location">San Diego</div><div class="features"><span>3 beds</span><span>3 baths</span></div></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=105'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1602343164557-7e4708a1a243?w=500');"><span class="price-tag">$12k/mo</span></div><div class="card-content"><h3>Beachfront Manor</h3><div class="location">Malibu</div><div class="features"><span>4 beds</span><span>4 baths</span></div></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=106'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500');"><span class="price-tag">$5.2M</span></div><div class="card-content"><h3>Cliffside Villa</h3><div class="location">Monaco</div><div class="features"><span>5 beds</span><span>6 baths</span></div></div></div>
+        </div>
+    </main>
+</div>
+
+<!-- ========== CONTACT PAGE ========== -->
+<div id="contact-page" style="display: none;">
+    <main class="page-container">
+        <div class="breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Contact</span></div>
+        <h1>Get in touch</h1>
+        <div class="contact-glossy">
+            <div>
+                <div class="form-group"><input placeholder="Your name"></div>
+                <div class="form-group"><input placeholder="Email"></div>
+                <div class="form-group"><textarea placeholder="Message" rows="5"></textarea></div>
+                <button class="btn-primary-glossy" onclick="demoToast('✨ Message sent')"><i class="fas fa-paper-plane"></i> Send</button>
+            </div>
+            <div style="background: rgba(255,255,255,0.3); border-radius: 2rem; padding: 2rem;">
+                <h3><i class="fas fa-map-pin"></i> Luxe Estate</h3>
+                <p>2000 Collins Ave, Miami Beach, FL 33139</p>
+                <p><i class="fas fa-phone-alt"></i> +1 305 555 7890</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri 9am - 8pm</p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- ========== PROPERTY DETAIL PAGE (ID=101) ========== -->
+<div id="property-page" style="display: none;">
+    <main class="page-container">
+        <div class="breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <a href="listings.html">Properties</a> <i class="fas fa-chevron-right"></i> <span id="propBreadcrumb">Crystal Heights</span></div>
+        <h1 id="propTitle">Crystal Heights</h1>
+        <p class="location" id="propLocation"><i class="fas fa-map-pin"></i> Miami, FL</p>
+        
+        <div class="detail-gallery-glossy">
+            <div class="main-img-glossy" id="propMainImg" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1000');"></div>
+            <div style="display: grid; gap:1.5rem;">
+                <div style="height:210px; background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600'); background-size:cover; border-radius:2rem; border:1px solid white;"></div>
+                <div style="height:210px; background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600'); background-size:cover; border-radius:2rem; border:1px solid white;"></div>
+            </div>
+        </div>
+
+        <div class="specs-glossy">
+            <div><i class="fas fa-bed fa-2x"></i><div><span id="propBeds">5</span> Beds</div></div>
+            <div><i class="fas fa-bath fa-2x"></i><div><span id="propBaths">5</span> Baths</div></div>
+            <div><i class="fas fa-ruler fa-2x"></i><div><span id="propArea">4200</span> sqft</div></div>
+            <div><i class="fas fa-tag fa-2x"></i><div><span id="propPrice">$2,450,000</span></div></div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap:2rem;">
+            <div style="background: rgba(255,255,255,0.3); backdrop-filter:blur(8px); border-radius:2rem; padding:2rem;">
+                <h2>Description</h2>
+                <p id="propDesc">Stunning modern villa with glass walls, infinity pool, and panoramic ocean views. Smart home system, home theater, and private gym.</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.4); backdrop-filter:blur(16px); border-radius:2rem; padding:2rem;">
+                <h3><i class="fas fa-user"></i> Agent</h3>
+                <p><strong>Sophia Reynolds</strong><br><i class="fas fa-phone"></i> +1 305 555 1234</p>
+                <button class="btn-primary-glossy" style="width:100%;" onclick="demoToast('📅 Showing scheduled')">Request Visit</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- footer -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div><h4><i class="fas fa-crown"></i> Luxe Estate</h4><p>Premium real estate with a glossy finish</p></div>
+        <div><h4>Pages</h4><ul style="list-style:none;"><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('listings');return false;">Listings</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div>
+    </div>
+    <div class="copyright">© 2025 Luxe Estate · Glossy theme</div>
+</footer>
+
+<!-- simple router -->
+<script>
+    function demoToast(m) {
+        let t = document.getElementById('demoToast');
+        t.textContent = m || '✨ Luxe demo';
+        t.classList.add('show');
+        setTimeout(()=>t.classList.remove('show'),2000);
+    }
+    function showPage(p) {
+        ['home-page','listings-page','contact-page','property-page'].forEach(id => document.getElementById(id).style.display='none');
+        document.getElementById(p+'-page').style.display='block';
+        window.location.hash = p;
+        if(p==='property') { // demo data
+            document.getElementById('propBreadcrumb').innerText='Crystal Heights';
+            document.getElementById('propTitle').innerText='Crystal Heights';
+            document.getElementById('propLocation').innerHTML='<i class="fas fa-map-pin"></i> Miami, FL';
+            document.getElementById('propMainImg').style.backgroundImage='url(\'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1000\')';
+            document.getElementById('propBeds').innerText='5';
+            document.getElementById('propBaths').innerText='5';
+            document.getElementById('propArea').innerText='4200';
+            document.getElementById('propPrice').innerText='$2,450,000';
+            document.getElementById('propDesc').innerText='Stunning modern villa with glass walls, infinity pool, and panoramic ocean views. Smart home system, home theater, and private gym.';
+        }
+    }
+    window.addEventListener('load', ()=>{
+        let h = window.location.hash.replace('#','') || 'home';
+        if(['home','listings','contact','property'].includes(h)) showPage(h);
+        else showPage('home');
+    });
+    window.showPage = showPage;
+    document.querySelectorAll('.filter-chip').forEach(c=>c.addEventListener('click', function(){
+        document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));
+        this.classList.add('active'); demoToast('Filter: '+this.innerText);
+    }));
+</script>
+</body>
+</html>

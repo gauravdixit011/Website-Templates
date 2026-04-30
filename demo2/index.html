@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swasti Estate · Indian Flavor</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        body {
+            background: #fef9e8;  /* warm off-white */
+            color: #2e1e0f;
+            line-height: 1.5;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* vibrant indian theme colors */
+        :root {
+            --saffron: #FF9933;      /* bold orange */
+            --deep-saffron: #e57e1f;
+            --green: #138808;         /* india green */
+            --white: #ffffff;
+            --chai: #c48b5e;          /* warm brown */
+            --turmeric: #fedb5f;
+            --ruby: #e03a3a;
+            --indigo: #3f2b6b;
+            --cream: #fff8e7;
+            --lotus: #fad6c0;
+        }
+
+        /* header with traditional pattern */
+        .header {
+            background: linear-gradient(135deg, var(--saffron) 0%, #ffad5c 100%);
+            box-shadow: 0 6px 18px rgba(200, 100, 0, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 4px solid var(--green);
+        }
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2e1e0f;
+            text-shadow: 2px 2px 0 rgba(255,255,200,0.5);
+            background: var(--cream);
+            padding: 0.2rem 1.2rem;
+            border-radius: 60px 60px 60px 10px;  /* asymmetrical desi touch */
+            border: 2px solid var(--green);
+        }
+        .logo i {
+            color: var(--ruby);
+            margin-right: 8px;
+            font-size: 2rem;
+            vertical-align: middle;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            font-weight: 600;
+            color: #2e1e0f;
+            transition: 0.2s;
+            padding: 0.4rem 0.2rem;
+            border-bottom: 3px solid transparent;
+            font-size: 1.1rem;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            border-bottom-color: var(--green);
+            color: #2e1e0f;
+            background: rgba(255,255,220,0.3);
+            border-radius: 0;
+        }
+        .btn-outline {
+            border: 2px solid var(--green);
+            background: var(--cream);
+            padding: 0.5rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #2e1e0f;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: var(--green);
+            color: white;
+            border-color: var(--saffron);
+        }
+
+        /* common container */
+        .page-container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* breadcrumb with indian spice */
+        .breadcrumb {
+            display: flex;
+            gap: 0.8rem;
+            color: #a1552e;
+            margin-bottom: 1.8rem;
+            background: var(--lotus);
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            border-left: 10px solid var(--saffron);
+        }
+        .breadcrumb a {
+            color: #5e2a0c;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #2e1e0f;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 0 var(--turmeric);
+        }
+
+        /* filter bar desi style */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            background: var(--cream);
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            border: 2px dashed var(--saffron);
+            box-shadow: 0 8px 0 #bb5e00;
+        }
+        .filter-chip {
+            background: white;
+            border-radius: 40px;
+            padding: 0.6rem 1.6rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2e1e0f;
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid var(--chai);
+        }
+        .filter-chip i {
+            margin-right: 6px;
+            color: var(--ruby);
+        }
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--saffron);
+            color: #2e1e0f;
+            border-color: var(--green);
+        }
+        .filter-chip.active i {
+            color: var(--green);
+        }
+
+        /* property grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .card {
+            background: white;
+            border-radius: 2rem 2rem 2rem 0;  /* unique shape */
+            box-shadow: 10px 10px 0 #c48b5e, 0 15px 25px -10px rgba(160, 80, 0, 0.3);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 2px solid #2e1e0f;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 15px 15px 0 #9e6a3b, 0 20px 30px -8px #b95b0e;
+        }
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-bottom: 4px solid var(--green);
+        }
+        .price-tag {
+            position: absolute;
+            bottom: 14px;
+            left: 16px;
+            background: var(--saffron);
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #2e1e0f;
+            border: 2px solid white;
+            box-shadow: 4px 4px 0 #2e1e0f;
+        }
+        .card-content {
+            padding: 1.4rem 1.2rem 1.6rem;
+            background: var(--cream);
+        }
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #1f2a0e;
+        }
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #7b4a2c;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+        .features {
+            display: flex;
+            gap: 1.2rem;
+            border-top: 2px dotted var(--chai);
+            padding-top: 0.9rem;
+            font-weight: 500;
+        }
+        .badge {
+            background: var(--green);
+            color: white;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.8rem;
+            border: 1px solid var(--saffron);
+        }
+
+        /* footer with traditional border */
+        .footer {
+            background: #2e1e0f;
+            color: #fde9d2;
+            padding: 2.5rem 2rem 1.5rem;
+            margin-top: 4rem;
+            border-top: 8px solid var(--saffron);
+            border-bottom: 8px solid var(--green);
+        }
+        .footer-grid {
+            max-width: 1300px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+            gap: 2rem;
+        }
+        .footer a {
+            color: #fbd8b4;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+            color: #e2c3a6;
+        }
+
+        /* toast */
+        .toast-msg {
+            visibility: hidden;
+            background: #2e1e0f;
+            color: var(--turmeric);
+            text-align: center;
+            border-radius: 60px;
+            padding: 16px 28px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            transition: 0.2s;
+            opacity: 0;
+            border: 3px solid var(--saffron);
+            font-weight: 600;
+        }
+        .toast-msg.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* contact page special */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            background: var(--cream);
+            border-radius: 3rem 0 3rem 0;
+            padding: 2.5rem;
+            border: 4px solid var(--green);
+            box-shadow: 12px 12px 0 #c48b5e;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #b46f3c;
+            border-radius: 40px;
+            font-size: 1rem;
+            background: #fffcf5;
+        }
+        .btn-primary {
+            background: var(--saffron);
+            color: #2e1e0f;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border: 2px solid var(--green);
+            box-shadow: 5px 5px 0 #aa6633;
+        }
+        .btn-primary:hover {
+            background: #ffad5c;
+            transform: translateY(-2px);
+            box-shadow: 7px 7px 0 #aa6633;
+        }
+
+        .agent-card {
+            background: white;
+            border-radius: 2rem 2rem 2rem 0;
+            padding: 1.8rem;
+            border: 3px solid var(--green);
+        }
+
+        /* property page specifics */
+        .detail-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: var(--cream);
+            padding: 2rem 2.5rem;
+            border-radius: 3rem 0 3rem 0;
+            margin: 2rem 0;
+            border: 3px solid var(--saffron);
+        }
+        .spec-item i {
+            color: var(--ruby);
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .two-col, .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- toast -->
+<div id="demoToast" class="toast-msg">✨ Swasti demo</div>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><i class="fas fa-om"></i> Swasti Estate</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="listings.html">Properties</a>
+            <a href="listings.html">Flats</a>
+            <a href="contact.html">Contact</a>
+            <a href="property.html?id=101" class="btn-outline"><i class="fas fa-star"></i> Featured</a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== HOME PAGE (index.html) ========== -->
+<div id="home-page" style="display: block;">
+    <main class="page-container">
+        <div style="background: var(--lotus); border-radius: 3rem 0 3rem 0; padding: 3rem; margin-bottom: 2rem; border: 4px solid var(--saffron); box-shadow: 10px 10px 0 #aa6633;">
+            <h1 style="font-size: 3.5rem;">Your Dream Home</h1>
+            <p style="font-size: 1.5rem; margin: 1rem 0 2rem; color: #3d2b12;">Vibrant India • Trusted since 1987</p>
+            <a href="listings.html" class="btn-primary" style="font-size: 1.3rem;"><i class="fas fa-search"></i> Explore properties</a>
+        </div>
+
+        <h2> <i class="fas fa-leaf" style="color: var(--green);"></i> New listings</h2>
+        <div class="grid-3">
+            <!-- card 1 -->
+            <div class="card" onclick="window.location.href='property.html?id=101'">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1628744448840-0bdb249de998?w=500&auto=format&fit=crop');"><span class="price-tag">₹ 2.45 Cr</span></div>
+                <div class="card-content">
+                    <h3 class="card-title">Mango Orchard Villa</h3>
+                    <div class="location"><i class="fas fa-map-pin"></i> Jaipur, Rajasthan</div>
+                    <div class="features"><span><i class="fas fa-bed"></i> 4 BHK</span><span><i class="fas fa-bath"></i> 3</span></div>
+                    <span class="badge">For Sale</span>
+                </div>
+            </div>
+            <!-- card 2 -->
+            <div class="card" onclick="window.location.href='property.html?id=102'">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1592595896616-c37162298647?w=500&auto=format&fit=crop');"><span class="price-tag">₹ 55k /mo</span></div>
+                <div class="card-content">
+                    <h3 class="card-title">Ganges View Apartment</h3>
+                    <div class="location"><i class="fas fa-map-pin"></i> Varanasi, UP</div>
+                    <div class="features"><span><i class="fas fa-bed"></i> 3 BHK</span><span><i class="fas fa-bath"></i> 2</span></div>
+                    <span class="badge">For Rent</span>
+                </div>
+            </div>
+            <!-- card 3 -->
+            <div class="card" onclick="window.location.href='property.html?id=103'">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&auto=format&fit=crop');"><span class="price-tag">₹ 3.80 Cr</span></div>
+                <div class="card-content">
+                    <h3 class="card-title">Jasmine Plaza</h3>
+                    <div class="location"><i class="fas fa-map-pin"></i> Pune, Maharashtra</div>
+                    <div class="features"><span><i class="fas fa-bed"></i> 4 BHK+study</span><span><i class="fas fa-bath"></i> 4</span></div>
+                    <span class="badge">New Launch</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- ========== LISTINGS PAGE (listings.html) ========== -->
+<div id="listings-page" style="display: none;">
+    <main class="page-container">
+        <div class="breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Properties</span></div>
+        <h1><i class="fas fa-building" style="color: var(--green);"></i> All properties</h1>
+        <div class="filter-bar">
+            <span class="filter-chip active"><i class="fas fa-home"></i> All</span>
+            <span class="filter-chip"><i class="fas fa-tree"></i> Villa</span>
+            <span class="filter-chip"><i class="fas fa-city"></i> Apartment</span>
+            <span class="filter-chip"><i class="fas fa-water"></i> Riverfront</span>
+            <span class="filter-chip"><i class="fas fa-star"></i> New</span>
+        </div>
+        <div class="grid-3">
+            <!-- cards 101-106 (sample) -->
+            <div class="card" onclick="window.location.href='property.html?id=101'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1628744448840-0bdb249de998?w=500');"><span class="price-tag">₹ 2.45 Cr</span></div><div class="card-content"><h3 class="card-title">Mango Orchard Villa</h3><div class="location"><i class="fas fa-map-pin"></i> Jaipur</div><div class="features"><span>4 BHK</span><span>3 bath</span></div><span class="badge">For Sale</span></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=102'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1592595896616-c37162298647?w=500');"><span class="price-tag">₹ 55k /mo</span></div><div class="card-content"><h3 class="card-title">Ganges View</h3><div class="location"><i class="fas fa-map-pin"></i> Varanasi</div><div class="features"><span>3 BHK</span><span>2 bath</span></div><span class="badge">Rent</span></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=103'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500');"><span class="price-tag">₹ 3.80 Cr</span></div><div class="card-content"><h3 class="card-title">Jasmine Plaza</h3><div class="location"><i class="fas fa-map-pin"></i> Pune</div><div class="features"><span>4 BHK</span><span>4 bath</span></div><span class="badge">New</span></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=104'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1580237072617-771c3ecc4a24?w=500');"><span class="price-tag">₹ 1.95 Cr</span></div><div class="card-content"><h3 class="card-title">Cuckoo Apartment</h3><div class="location"><i class="fas fa-map-pin"></i> Bhopal</div><div class="features"><span>3 BHK</span><span>2 bath</span></div><span class="badge">Sale</span></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=105'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=500');"><span class="price-tag">₹ 4.20 Cr</span></div><div class="card-content"><h3 class="card-title">Haveli Palace</h3><div class="location"><i class="fas fa-map-pin"></i> Udaipur</div><div class="features"><span>5 BHK</span><span>5 bath</span></div><span class="badge">Heritage</span></div></div>
+            <div class="card" onclick="window.location.href='property.html?id=106'"><div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1602343164557-7e4708a1a243?w=500');"><span class="price-tag">₹ 68k /mo</span></div><div class="card-content"><h3 class="card-title">Seaside House</h3><div class="location"><i class="fas fa-map-pin"></i> Goa</div><div class="features"><span>2 BHK</span><span>2 bath</span></div><span class="badge">Rent</span></div></div>
+        </div>
+    </main>
+</div>
+
+<!-- ========== PROPERTY DETAIL PAGE (property.html) ========== -->
+<div id="property-page" style="display: none;">
+    <main class="page-container">
+        <div class="breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <a href="listings.html">Properties</a> <i class="fas fa-chevron-right"></i> <span id="propBreadcrumb">Mango Orchard Villa</span></div>
+        <div style="display: flex; justify-content: space-between;">
+            <h1 id="propTitle">Mango Orchard Villa</h1>
+            <span class="badge" id="propBadge" style="font-size:1rem;">For Sale</span>
+        </div>
+        <p class="location" id="propLocation"><i class="fas fa-map-pin"></i> Jaipur, Rajasthan</p>
+        <!-- gallery -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap:1rem; margin:2rem 0;">
+            <div style="height:350px; background-image:url('https://images.unsplash.com/photo-1628744448840-0bdb249de998?w=1000'); background-size:cover; border-radius:2rem 0 2rem 0; border:4px solid var(--saffron);" id="propMainImg"></div>
+            <div style="display:grid; grid-template-rows:1fr 1fr; gap:1rem;">
+                <div style="background-image:url('https://images.unsplash.com/photo-1580237072617-771c3ecc4a24?w=600'); background-size:cover; border-radius:1.5rem 0 1.5rem 0; border:3px solid var(--green);"></div>
+                <div style="background-image:url('https://images.unsplash.com/photo-1602343164557-7e4708a1a243?w=600'); background-size:cover; border-radius:1.5rem 0 1.5rem 0; border:3px solid var(--green);"></div>
+            </div>
+        </div>
+        <!-- specs -->
+        <div class="detail-specs">
+            <div class="spec-item"><i class="fas fa-bed fa-2x"></i><div class="spec-value" id="propBeds">4</div><div>BHK</div></div>
+            <div class="spec-item"><i class="fas fa-bath fa-2x"></i><div id="propBaths">3</div><div>bath</div></div>
+            <div class="spec-item"><i class="fas fa-ruler fa-2x"></i><div id="propArea">2850</div><div>sq.ft.</div></div>
+            <div class="spec-item"><i class="fas fa-tag fa-2x"></i><div id="propPrice">₹ 2.45 Cr</div><div>price</div></div>
+        </div>
+        <!-- two col -->
+        <div class="two-col">
+            <div><h2>Description</h2><p id="propDesc">Beautiful villa in Jaipur with traditional architecture and modern amenities. Lotus pond, courtyard, and near Amer Fort.</p></div>
+            <div class="agent-card"><h3><i class="fas fa-user-tie"></i> Contact Us</h3><p><i class="fas fa-phone-alt"></i> +91 98765 4321</p><button class="btn-primary" onclick="demoToast('📞 inquiry sent')">Schedule visit</button></div>
+        </div>
+    </main>
+</div>
+
+<!-- ========== CONTACT PAGE (contact.html) ========== -->
+<div id="contact-page" style="display: none;">
+    <main class="page-container">
+        <div class="breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Contact Us</span></div>
+        <h1><i class="fas fa-phone-alt" style="color:var(--green);"></i> Connect with us</h1>
+        <div class="contact-grid">
+            <div>
+                <div class="form-group"><input placeholder="Your Name"></div>
+                <div class="form-group"><input placeholder="Email"></div>
+                <div class="form-group"><textarea placeholder="Message"></textarea></div>
+                <button class="btn-primary" onclick="demoToast('📨 Sent')">Send <i class="fas fa-paper-plane"></i></button>
+            </div>
+            <div class="agent-card">
+                <h3><i class="fas fa-map-marked-alt"></i> Jaipur head office</h3>
+                <p><i class="fas fa-map-pin"></i> 22, MI Road, Jaipur</p>
+                <p><i class="fas fa-clock"></i> 10 AM – 7 PM</p>
+                <p><i class="fas fa-phone"></i> 0141-4050607</p>
+                <div style="margin-top:1rem;"><i class="fas fa-user"></i> Mrs. Anjali Sharma (agent)</div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- footer (common) -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div><h4><i class="fas fa-om"></i> Swasti Estate</h4><p>India's Own Real Estate</p></div>
+        <div><h4>Pages</h4><ul style="list-style:none;"><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('listings');return false;">Listings</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div>
+    </div>
+    <div class="copyright">© 2025 स्वasti Estate · vibrant Indian theme</div>
+</footer>
+
+<!-- simple router + demo functions -->
+<script>
+    function demoToast(msg) {
+        const t = document.getElementById('demoToast');
+        t.textContent = msg || '✨ Swasti demo';
+        t.classList.add('show');
+        setTimeout(()=>t.classList.remove('show'),2000);
+    }
+    function showPage(p) {
+        const pages = ['home-page','listings-page','property-page','contact-page'];
+        pages.forEach(id => document.getElementById(id).style.display='none');
+        document.getElementById(p+'-page').style.display='block';
+        // update nav active (simplified)
+        document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+        if(p==='home') document.querySelector('a[href="index.html"]').classList.add('active');
+        if(p==='listings') document.querySelectorAll('.nav-links a')[1].classList.add('active');
+        if(p==='contact') document.querySelectorAll('.nav-links a')[3].classList.add('active');
+        window.location.hash = p;
+    }
+    // load based on hash / fake url
+    window.addEventListener('load', ()=>{
+        const hash = window.location.hash.replace('#','') || 'home';
+        if(['home','listings','property','contact'].includes(hash)) showPage(hash);
+        else showPage('home');
+        if(hash==='property') { // mock property data load
+            document.getElementById('propTitle').innerText='Mango Orchard Villa';
+            document.getElementById('propBreadcrumb').innerText='Mango Orchard Villa';
+            document.getElementById('propLocation').innerHTML='<i class="fas fa-map-pin"></i> Jaipur, Rajasthan';
+            document.getElementById('propMainImg').style.backgroundImage='url(\'https://images.unsplash.com/photo-1628744448840-0bdb249de998?w=1000\')';
+            document.getElementById('propBeds').innerText='4';
+            document.getElementById('propBaths').innerText='3';
+            document.getElementById('propArea').innerText='2850';
+            document.getElementById('propPrice').innerText='₹ 2.45 Cr';
+            document.getElementById('propDesc').innerText='Beautiful villa in Jaipur with traditional architecture and modern amenities. Lotus pond, courtyard, and near Amer Fort.';
+        }
+    });
+    window.showPage = showPage;
+    // chip filter demo
+    document.querySelectorAll('.filter-chip').forEach(c => c.addEventListener('click', function(){ 
+        document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active')); 
+        this.classList.add('active'); demoToast('Filtered: '+this.innerText); 
+    }));
+</script>
+<!-- ensure property page card links work -->
+</body>
+</html>
